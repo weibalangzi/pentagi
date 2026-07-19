@@ -1,0 +1,38 @@
+# PentAGI risk preflight policy.
+# This policy is for lawful project intake and privacy minimisation.
+# It is deliberately not an anonymity, anti-forensics, or attribution-evasion policy.
+policy:
+  default_action: pause-and-ask
+  require_authorization_reference: true
+  require_scope_and_time_window: true
+  require_asset_owner_or_contract_contact: true
+  require_stop_conditions: true
+  require_test_accounts_for_authenticated_checks: true
+  deny_without_explicit_approval:
+    - third_party_target
+    - personal_data_collection
+    - credential_testing
+    - destructive_or_irreversible_action
+    - persistence_or_lateral_movement
+    - evasion_or_anti_forensics
+    - bypassing_monitoring_or_access_controls
+  high_sensitivity_categories:
+    - government_or_public_service
+    - financial_or_payment
+    - healthcare_or_medical
+    - education_or_minors
+    - critical_infrastructure
+    - telecommunications
+    - identity_and_authentication
+    - cross_border_data
+  privacy_minimisation:
+    - use_a_dedicated_work_account_and_machine
+    - use_client_approved_jump_host_or_vpn
+    - keep_egress_destinations_and_logs_documented
+    - do_not_send_personal_email_phone_location_or_home_ip
+    - redact_tokens_cookies_credentials_and_personal_data
+    - retain_only_minimum_evidence_needed_for_reproduction
+  escalation_contacts:
+    legal: "{{legal_contact}}"
+    project_owner: "{{project_owner}}"
+    security_contact: "{{security_contact}}"

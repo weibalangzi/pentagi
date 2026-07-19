@@ -1,0 +1,148 @@
+# Kimi K3 (Moonshot) configuration for PentAGI custom OpenAI-compatible provider.
+#
+# Moonshot K3 API constraints from official docs:
+# - model: kimi-k3
+# - base URL: https://api.moonshot.ai/v1
+# - thinking mode is always enabled
+# - reasoning_effort currently supports only "max"
+# - temperature/top_p/n/presence_penalty/frequency_penalty are fixed by the API
+#   and should be omitted from requests.
+#
+# Use with:
+#   LLM_SERVER_URL=https://api.moonshot.ai/v1
+#   LLM_SERVER_KEY=<your Moonshot API key>
+#   LLM_SERVER_MODEL=kimi-k3
+#   LLM_SERVER_CONFIG_PATH=./examples/configs/kimi-k3.provider.yml
+#   LLM_SERVER_LEGACY_REASONING=true
+#   LLM_SERVER_PRESERVE_REASONING=true
+
+simple:
+  model: kimi-k3
+  n: 1
+  max_tokens: 8192
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+simple_json:
+  model: kimi-k3
+  n: 1
+  max_tokens: 8192
+  json: true
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+primary_agent:
+  model: kimi-k3
+  n: 1
+  max_tokens: 32768
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+assistant:
+  model: kimi-k3
+  n: 1
+  max_tokens: 32768
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+generator:
+  model: kimi-k3
+  n: 1
+  max_tokens: 65536
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+refiner:
+  model: kimi-k3
+  n: 1
+  max_tokens: 65536
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+adviser:
+  model: kimi-k3
+  n: 1
+  max_tokens: 32768
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+reflector:
+  model: kimi-k3
+  n: 1
+  max_tokens: 16384
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+searcher:
+  model: kimi-k3
+  n: 1
+  max_tokens: 16384
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+enricher:
+  model: kimi-k3
+  n: 1
+  max_tokens: 16384
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+coder:
+  model: kimi-k3
+  n: 1
+  max_tokens: 65536
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+installer:
+  model: kimi-k3
+  n: 1
+  max_tokens: 32768
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0
+
+pentester:
+  model: kimi-k3
+  n: 1
+  max_tokens: 32768
+  reasoning:
+    effort: max
+  price:
+    input: 0
+    output: 0

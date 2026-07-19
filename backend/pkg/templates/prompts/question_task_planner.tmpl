@@ -4,14 +4,16 @@ I am a {{.AgentType}} agent and I have just received the following task assignme
 {{.TaskQuestion}}
 </my_task>
 
-I need your help to create a structured execution plan before I begin working. Please provide me with a concise checklist (3-7 steps) that will help me complete this task efficiently and correctly.
+I need your help to create a structured execution plan before I begin working. Do not execute tools, invent observations, or jump directly to the first command. First compare plausible approaches and return a ranked plan (3-7 steps) that maximizes the probability of reaching the objective with the fewest risky or redundant actions.
 
 The plan should:
 - Include specific, actionable steps I need to take
+- For every step include: objective, prerequisite, minimal action, expected observation, evidence required, success criterion, failure branch, and stop condition
+- Rank alternatives by estimated success probability, information gain, cost, reversibility, and operational risk; choose one primary path and name one fallback
 - Specify what I should check or verify at each stage
 - Highlight potential pitfalls or mistakes I should avoid
 - Ensure I stay focused only on this current task without going beyond its scope
-- Help me avoid redundant work by leveraging available context
+- Help me avoid redundant work by leveraging available context and prior results
 - Guide me toward efficient task completion without unnecessary actions
 
 Important context for planning:
@@ -20,10 +22,22 @@ Important context for planning:
 - Check port availability before launching any listeners/daemons
 - Minimize output with -q flags to reduce token usage
 
-Please format your response as a numbered checklist like this:
-1. [First critical action/verification step]
-2. [Second step with specific details]
-3. [Continue with remaining steps]
+Please format your response exactly as:
+
+<plan>
+<objective>...</objective>
+<assumptions>...</assumptions>
+<options>
+<option rank="1" score="0-100">approach, rationale, prerequisites, risks</option>
+<option rank="2" score="0-100">fallback approach and when to use it</option>
+</options>
+<steps>
+<step rank="1"><objective>...</objective><prerequisite>...</prerequisite><action>...</action><expected>...</expected><evidence>...</evidence><success>...</success><failure_branch>...</failure_branch><stop>...</stop></step>
+</steps>
+<decision_gate>What must be true before execution can continue?</decision_gate>
+</plan>
+
+If information is missing, mark it as an assumption or blocker instead of guessing. This plan is a decision artifact: the executing agent must follow the highest-ranked viable path and explicitly record any evidence-based deviation.
 ...
 
 This plan will serve as my roadmap for completing the task, though I may deviate from it if I discover better approaches during execution.

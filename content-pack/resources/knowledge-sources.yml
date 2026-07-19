@@ -1,0 +1,93 @@
+# PentAGI knowledge upgrade source registry.
+# Use this as a retrieval policy, not as an instruction to blindly ingest pages.
+# Re-check version, date, license and applicability before storing a record.
+sources:
+  - id: nvd
+    name: NIST National Vulnerability Database
+    url: https://nvd.nist.gov/developers/vulnerabilities
+    kind: vulnerability
+    trust: primary
+    freshness: daily
+    retrieval: api-first
+    use_for: [cve, affected_versions, cvss, references]
+    cross_check: [vendor_advisory, cisa_kev, osv]
+  - id: cisa-kev
+    name: CISA Known Exploited Vulnerabilities Catalog
+    url: https://www.cisa.gov/known-exploited-vulnerabilities-catalog
+    kind: vulnerability
+    trust: primary
+    freshness: daily
+    retrieval: feed-or-page
+    use_for: [known_exploitation, due_dates, remediation_priority]
+    cross_check: [nvd, vendor_advisory]
+  - id: osv
+    name: OSV.dev
+    url: https://osv.dev/docs/
+    kind: vulnerability
+    trust: primary
+    freshness: daily
+    retrieval: api-first
+    use_for: [open_source, package_ranges, ecosystem_specific_advisories]
+    cross_check: [github-advisories, vendor_advisory]
+  - id: github-advisories
+    name: GitHub Advisory Database
+    url: https://docs.github.com/en/code-security/security-advisories/working-with-repository-security-advisories/about-repository-security-advisories
+    kind: vulnerability
+    trust: primary
+    freshness: daily
+    retrieval: api-or-page
+    use_for: [ghsa, package_ecosystems, patches]
+    cross_check: [osv, vendor_advisory]
+  - id: mitre-attack
+    name: MITRE ATT&CK STIX/TAXII
+    url: https://attack.mitre.org/resources/attack-data-and-tools/
+    kind: methodology
+    trust: primary
+    freshness: release-based
+    retrieval: stix-or-taxii
+    use_for: [techniques, tactics, procedure_examples, detection_context]
+    cross_check: [vendor_advisory, cisa]
+  - id: owasp-wstg
+    name: OWASP Web Security Testing Guide
+    url: https://owasp.org/www-project-web-security-testing-guide/latest/
+    kind: methodology
+    trust: primary
+    freshness: release-based
+    retrieval: page-or-repository
+    use_for: [web_test_cases, passive_active_testing, evidence]
+    cross_check: [owasp-asvs, portswigger-academy]
+  - id: owasp-asvs
+    name: OWASP Application Security Verification Standard
+    url: https://owasp.org/www-project-application-security-verification-standard/
+    kind: methodology
+    trust: primary
+    freshness: release-based
+    retrieval: page-or-repository
+    use_for: [verification_requirements, auth, sessions, access_control, api]
+    cross_check: [owasp-wstg, vendor_guidance]
+  - id: portswigger-academy
+    name: PortSwigger Web Security Academy
+    url: https://portswigger.net/web-security
+    kind: training-and-methodology
+    trust: high
+    freshness: rolling
+    retrieval: page
+    use_for: [web_concepts, lab_patterns, defensive_explanations]
+    cross_check: [owasp-wstg, owasp-asvs]
+  - id: vendor-advisories
+    name: Product vendor security advisories
+    url: https://www.google.com/search?q=product+vendor+security+advisory
+    kind: vulnerability
+    trust: primary-when-official
+    freshness: event-based
+    retrieval: targeted-search
+    use_for: [affected_products, patches, workarounds, exploit_conditions]
+    cross_check: [nvd, osv, cisa-kev]
+
+ingestion_rules:
+  - Keep source_url, fetched_at, published_at, modified_at and source_version.
+  - Store an advisory summary and affected-version facts separately from exploit material.
+  - Require two independent signals before marking exploitation or impact as confirmed.
+  - Prefer vendor fixes, detection guidance and lab-safe reproductions over weaponized payloads.
+  - Deduplicate by CVE/GHSA/OSV ID, canonical URL and normalized title.
+  - Mark stale records and re-embed changed records; never silently overwrite history.
