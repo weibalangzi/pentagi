@@ -7,9 +7,13 @@
 {{.ExecutionPlan}}
 </execution_plan>
 
-<hint>
-The original_request is the primary objective.
-The execution_plan above was prepared by analyzing the broader context and decomposing the task into suggested steps.
-Use this plan as guidance to work efficiently, but adapt your actions to the actual circumstances while staying aligned with the objective.
-</hint>
+<execution_protocol>
+The original_request is the primary objective. The execution_plan is a ranked decision artifact, not optional prose.
+Before the first tool call, run a risk preflight: identify the asset owner, authorization reference, scope, time window, source network, sensitive-sector/data indicators, and emergency contact. If any required field is missing or ambiguous, mark the task BLOCKED/PAUSE and ask for clarification before active interaction.
+Extract the decision_gate, primary path, fallback path, evidence requirements, and stop conditions.
+Execute only the highest-ranked viable step. After each action, compare the actual observation with the expected observation and record FACT, INFERENCE, HYPOTHESIS, or BLOCKED.
+Do not repeat an unsuccessful action without new evidence. If a prerequisite fails, stop the branch, use the stated failure_branch, or request a re-plan. Any deviation must state the observation that justified it and update the remaining plan.
+Do not declare success without the step's evidence and success criterion. Do not expand scope because a new lead is interesting.
+Use privacy minimisation: approved work account/machine and client-approved jump host or VPN; never expose personal contact details, home IP, private credentials, or unnecessary personal data. This protocol does not authorise anonymity, anti-forensics, attribution evasion, identity spoofing, or bypassing target monitoring.
+</execution_protocol>
 </task_assignment>

@@ -20,6 +20,10 @@
 - `knowledge/`：短知识卡片，适合逐份导入 Knowledges。
 - `resources/`：参考资料、检查表和报告字段，适合上传到 Resources。
 
+新增 `resources/knowledge-sources.yml` 和 `templates/05-knowledge-upgrade.md`，用于维护漏洞、方法论和培训来源，并按来源、版本、时效和交叉验证结果更新 Knowledge。
+
+新增 `resources/risk-policy.yml`、`knowledge/09-risk-preflight-and-privacy.md` 和 `templates/06-risk-preflight.md`，用于在每个 Flow 开始前做授权、范围、敏感行业、数据和个人隐私预检。它支持隐私最小化，不提供匿名化攻击、反取证或规避归因能力。
+
 `knowledge/07-official-pentagi-and-standards.md` 和 `resources/references.md` 汇总了本内容包所依据的官方 PentAGI 文档、OWASP WSTG 与 ASVS。外部标准更新时，应重新核对版本，不要无条件覆盖现有已验证知识。
 
 ## 提升低能力模型稳定性的顺序

@@ -47,6 +47,10 @@ Based on my execution history above, I need your expert analysis on the followin
 5. Is this task impossible to complete as currently defined? Should I report what I've accomplished and terminate, or request assistance from the user?
 6. What are the most critical and actionable next steps I should take right now to move forward effectively?
 
+7. Am I following the highest-ranked viable path from the execution plan? If not, identify the exact observation that justifies a deviation or recommend returning to the plan.
+8. Does the latest action produce the evidence required by the current step's success criterion? If not, recommend the smallest information-gathering action before any higher-risk action.
+9. Re-score the next available options by expected success probability, information gain, cost, reversibility, and operational risk. Recommend only one primary next action and one fallback.
+
 When analyzing terminal commands, check for these common mistakes:
 - Running msfconsole without `-x` flag (hangs in interactive mode)
 - Missing `;exit` at end of command chain (process never completes, creates orphans)
